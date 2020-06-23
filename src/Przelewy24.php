@@ -5,6 +5,7 @@ namespace Przelewy24;
 use Przelewy24\Api\Api;
 use Przelewy24\Api\Response\RegisterTransactionResponse;
 use Przelewy24\Api\Response\VerifyTransactionResponse;
+use Przelewy24\Exceptions\Przelewy24Exception;
 
 class Przelewy24
 {
@@ -57,12 +58,17 @@ class Przelewy24
 
     /**
      * @return \Przelewy24\TransactionStatusRequest
+     * @throws \Przelewy24\Exceptions\Przelewy24Exception
      */
     public function handleWebhook(): TransactionStatusRequest
     {
         $data = json_decode(
             file_get_contents('php://input')
         );
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Przelewy24Exception('Invalid webhook data format');
+        }
 
         return new TransactionStatusRequest($data);
     }
