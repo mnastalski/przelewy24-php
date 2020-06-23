@@ -58,17 +58,10 @@ class Przelewy24
 
     /**
      * @return \Przelewy24\TransactionStatusRequest
-     * @throws \Przelewy24\Exceptions\Przelewy24Exception
      */
     public function handleWebhook(): TransactionStatusRequest
     {
-        $data = json_decode(
-            file_get_contents('php://input')
-        );
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Przelewy24Exception('Invalid webhook data format');
-        }
+        parse_str(file_get_contents('php://input'), $data);
 
         return new TransactionStatusRequest($data);
     }
