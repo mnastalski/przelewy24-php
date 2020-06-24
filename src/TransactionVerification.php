@@ -21,6 +21,8 @@ class TransactionVerification extends ApiRequest
      */
     public function __construct(array $parameters = [])
     {
-        $this->parameters = $parameters;
+        $this->parameters = array_merge([
+            'currency' => 'PLN',
+        ], $parameters);
     }
 }
