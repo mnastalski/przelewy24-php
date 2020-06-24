@@ -2,7 +2,7 @@
 
 namespace Przelewy24;
 
-class TransactionStatusRequest
+class TransactionStatusNotification
 {
     /**
      * @var array
@@ -22,7 +22,7 @@ class TransactionStatusRequest
      */
     public function sessionId(): string
     {
-        return $this->parameters['session_id'];
+        return $this->parameters['p24_session_id'];
     }
 
     /**
@@ -30,7 +30,7 @@ class TransactionStatusRequest
      */
     public function amount(): int
     {
-        return $this->parameters['amount'];
+        return $this->parameters['p24_amount'];
     }
 
     /**
@@ -38,7 +38,7 @@ class TransactionStatusRequest
      */
     public function currency(): string
     {
-        return $this->parameters['currency'];
+        return $this->parameters['p24_currency'];
     }
 
     /**
@@ -46,7 +46,7 @@ class TransactionStatusRequest
      */
     public function orderId(): int
     {
-        return $this->parameters['order_id'];
+        return $this->parameters['p24_order_id'];
     }
 
     /**
@@ -54,7 +54,7 @@ class TransactionStatusRequest
      */
     public function method(): string
     {
-        return $this->parameters['method'];
+        return $this->parameters['p24_method'];
     }
 
     /**
@@ -62,7 +62,7 @@ class TransactionStatusRequest
      */
     public function statement(): int
     {
-        return $this->parameters['statement'];
+        return $this->parameters['p24_statement'];
     }
 
     /**
@@ -70,7 +70,7 @@ class TransactionStatusRequest
      */
     public function sign(): int
     {
-        return $this->parameters['sign'];
+        return $this->parameters['p24_sign'];
     }
 
     /**

@@ -5,7 +5,6 @@ namespace Przelewy24;
 use Przelewy24\Api\Api;
 use Przelewy24\Api\Response\RegisterTransactionResponse;
 use Przelewy24\Api\Response\VerifyTransactionResponse;
-use Przelewy24\Exceptions\Przelewy24Exception;
 
 class Przelewy24
 {
@@ -57,12 +56,12 @@ class Przelewy24
     }
 
     /**
-     * @return \Przelewy24\TransactionStatusRequest
+     * @return \Przelewy24\TransactionStatusNotification
      */
-    public function handleWebhook(): TransactionStatusRequest
+    public function handleWebhook(): TransactionStatusNotification
     {
         parse_str(file_get_contents('php://input'), $data);
 
-        return new TransactionStatusRequest($data);
+        return new TransactionStatusNotification($data);
     }
 }
