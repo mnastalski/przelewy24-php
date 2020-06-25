@@ -45,7 +45,7 @@ abstract class ApiResponse
      */
     protected function hasError(): bool
     {
-        return (int) $this->error > 0;
+        return !empty($this->error);
     }
 
     /**
