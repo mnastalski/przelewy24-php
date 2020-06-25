@@ -14,6 +14,7 @@ class TransactionVerification extends ApiRequest
         'order_id',
         'amount',
         'currency',
+        'crc',
     ];
 
     /**
