@@ -2,6 +2,10 @@
 
 PHP wrapper for [www.przelewy24.pl](https://www.przelewy24.pl/).
 
+## Requirements
+
+- PHP >=7.1.3
+
 ## Usage
 
 ### Creating an instance
