@@ -1,6 +1,10 @@
 {
     "name": "mnastalski/przelewy24-php",
     "description": "Przelewy24 PHP library",
+    "keywords": [
+        "przelewy24",
+        "payment"
+    ],
     "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/mnastalski/przelewy24-php",
