@@ -12,7 +12,7 @@ use Przelewy24\Przelewy24;
 $przelewy24 = new Przelewy24([
     'merchant_id' => '12345',
     'crc' => 'aef0...',
-    'mode' => 'sandbox', // live for production
+    'live' => false, // `true` for production/live mode
 ]);
 ```
 

@@ -9,16 +9,6 @@ class Config
     /**
      * @var string
      */
-    public const MODE_SANDBOX = 'sandbox';
-
-    /**
-     * @var string
-     */
-    public const MODE_LIVE = 'live';
-
-    /**
-     * @var string
-     */
     private $merchantId;
 
     /**
@@ -32,9 +22,9 @@ class Config
     private $crc;
 
     /**
-     * @var string
+     * @var bool
      */
-    private $mode;
+    private $isLiveMode;
 
     /**
      * @param array $parameters
@@ -61,7 +51,7 @@ class Config
         $this->merchantId = $parameters['merchant_id'];
         $this->posId = $parameters['pos_id'] ?? null;
         $this->crc = $parameters['crc'];
-        $this->mode = $parameters['mode'] ?? self::MODE_LIVE;
+        $this->isLiveMode = isset($parameters['live']) && (bool) $parameters['live'] === true;
 
         return $this;
     }
@@ -91,19 +81,11 @@ class Config
     }
 
     /**
-     * @return string
-     */
-    public function getMode(): string
-    {
-        return $this->mode;
-    }
-
-    /**
      * @return bool
      */
     public function isLiveMode(): bool
     {
-        return $this->getMode() === self::MODE_LIVE;
+        return $this->isLiveMode;
     }
 
     /**
