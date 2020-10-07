@@ -6,6 +6,12 @@ PHP wrapper for [www.przelewy24.pl](https://www.przelewy24.pl/).
 
 - PHP >=7.1.3
 
+## Installation
+
+```shell
+composer require mnastalski/przelewy24-php
+```
+
 ## Usage
 
 ### Creating an instance
