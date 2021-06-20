@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class Api
 {
-    public const VERSION = 3.2;
+    public const VERSION = '3.2';
 
     public const URL_LIVE = 'https://secure.przelewy24.pl/';
     public const URL_SANDBOX = 'https://sandbox.przelewy24.pl/';
