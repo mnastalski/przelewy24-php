@@ -58,17 +58,17 @@ class TransactionStatusNotification
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function statement(): int
+    public function statement(): string
     {
         return $this->parameters['p24_statement'];
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function sign(): int
+    public function sign(): string
     {
         return $this->parameters['p24_sign'];
     }
