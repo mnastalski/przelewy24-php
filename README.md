@@ -66,3 +66,19 @@ $przelewy24->verify([
     'amount' => 'transaction amount as an integer (1.25 PLN = 125)',
 ]);
 ```
+
+### Error handling
+
+Should Przelewy24's API return an erroneous response, an `ApiResponseException::class` (which extends `Przelewy24Exception::class`) will be thrown. You can therefore use a `try/catch` block to handle any errors:
+
+```php
+use Przelewy24\Exceptions\Przelewy24Exception;
+
+try {
+    $przelewy24->transaction([
+        // ...
+    ]);
+} catch (Przelewy24Exception $e) {
+    // Handle the error...
+}
+```
