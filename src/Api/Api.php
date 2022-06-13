@@ -2,8 +2,9 @@
 
 namespace Przelewy24\Api;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\RequestOptions;
 use Przelewy24\Api\Request\SignedApiRequest;
 use Przelewy24\Api\Response\RegisterTransactionResponse;
 use Przelewy24\Api\Response\TestConnectionResponse;
@@ -85,11 +86,9 @@ class Api
     {
         $apiRequest->setConfig($this->config);
 
-        $response = new VerifyTransactionResponse(
+        return new VerifyTransactionResponse(
             $this->request(self::ENDPOINT_VERIFY, $apiRequest->parameters())
         );
-
-        return $response;
     }
 
     /**
@@ -98,8 +97,10 @@ class Api
     private function client(): ClientInterface
     {
         if (!$this->client) {
-            $this->client = new Client([
+            $this->client = new GuzzleClient([
                 'base_uri' => $this->getApiUrl(),
+                RequestOptions::CONNECT_TIMEOUT => 10,
+                RequestOptions::TIMEOUT => 30,
             ]);
         }
 
@@ -107,8 +108,6 @@ class Api
     }
 
     /**
-     * //
-     *
      * @param string $endpoint
      * @param array $parameters
      * @return \Psr\Http\Message\ResponseInterface
