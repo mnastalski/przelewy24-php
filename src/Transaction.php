@@ -48,6 +48,7 @@ class Transaction extends ApiRequest
         $this->parameters = array_merge([
             'currency' => 'PLN',
             'language' => self::LANGUAGE_PL,
+            'encoding' => self::ENCODING_UTF_8,
             'api_version' => Api::VERSION,
         ], $parameters);
     }
