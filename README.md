@@ -9,7 +9,7 @@ PHP wrapper for [www.przelewy24.pl](https://www.przelewy24.pl/).
 ## Installation
 
 ```shell
-composer require mnastalski/przelewy24-php
+composer require mnastalski/przelewy24-php "^0.1"
 ```
 
 ## Usage
