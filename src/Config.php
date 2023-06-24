@@ -2,101 +2,54 @@
 
 namespace Przelewy24;
 
-use InvalidArgumentException;
-
 class Config
 {
-    /**
-     * @var string
-     */
-    private $merchantId;
+    private int $merchantId;
 
-    /**
-     * @var string|null
-     */
-    private $posId;
+    private string $reportsKey;
 
-    /**
-     * @var string
-     */
-    private $crc;
+    private string $crc;
 
-    /**
-     * @var bool
-     */
-    private $isLiveMode;
+    private bool $isLive;
 
-    /**
-     * @param array $parameters
-     */
-    public function __construct(array $parameters)
-    {
-        $this->set($parameters);
+    private ?int $posId;
+
+    public function __construct(
+        int $merchantId,
+        string $reportsKey,
+        string $crc,
+        bool $isLive = false,
+        ?int $posId = null,
+    ) {
+        $this->merchantId = $merchantId;
+        $this->crc = $crc;
+        $this->reportsKey = $reportsKey;
+        $this->isLive = $isLive;
+        $this->posId = $posId;
     }
 
-    /**
-     * @param array $parameters
-     * @return \Przelewy24\Config
-     */
-    public function set(array $parameters): self
-    {
-        if (!$parameters['merchant_id']) {
-            throw new InvalidArgumentException('"merchant_id" must be specified in the configuration parameters.');
-        }
-
-        if (!$parameters['crc']) {
-            throw new InvalidArgumentException('"crc" must be specified in the configuration parameters.');
-        }
-
-        $this->merchantId = $parameters['merchant_id'];
-        $this->posId = $parameters['pos_id'] ?? null;
-        $this->crc = $parameters['crc'];
-        $this->isLiveMode = isset($parameters['live']) && (bool) $parameters['live'] === true;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMerchantId(): string
+    public function merchantId(): int
     {
         return $this->merchantId;
     }
 
-    /**
-     * @return string
-     */
-    public function getPosId(): string
+    public function posId(): int
     {
-        return $this->posId ?? $this->getMerchantId();
+        return $this->posId ?? $this->merchantId();
     }
 
-    /**
-     * @return string
-     */
-    public function getCrc(): string
+    public function reportsKey(): string
+    {
+        return $this->reportsKey;
+    }
+
+    public function crc(): string
     {
         return $this->crc;
     }
 
-    /**
-     * @return bool
-     */
     public function isLiveMode(): bool
     {
-        return $this->isLiveMode;
-    }
-
-    /**
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return [
-            'merchant_id' => $this->getMerchantId(),
-            'pos_id' => $this->getPosId(),
-            'crc' => $this->getCrc(),
-        ];
+        return $this->isLive;
     }
 }

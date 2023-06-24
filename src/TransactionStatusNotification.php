@@ -2,82 +2,92 @@
 
 namespace Przelewy24;
 
+use Przelewy24\Enums\Currency;
+
 class TransactionStatusNotification
 {
-    /**
-     * @var array
-     */
-    private $parameters = [];
+    private Config $config;
 
-    /**
-     * @param array $data
-     */
-    public function __construct(array $data)
+    private array $parameters;
+
+    public function __construct(Config $config, array $parameters)
     {
-        $this->parameters = $data;
+        $this->config = $config;
+        $this->parameters = $parameters;
     }
 
-    /**
-     * @return string
-     */
+    public function merchantId(): int
+    {
+        return $this->parameters['merchantId'];
+    }
+
+    public function posId(): int
+    {
+        return $this->parameters['posId'];
+    }
+
     public function sessionId(): string
     {
-        return $this->parameters['p24_session_id'];
+        return $this->parameters['sessionId'];
     }
 
-    /**
-     * @return int
-     */
     public function amount(): int
     {
-        return $this->parameters['p24_amount'];
+        return $this->parameters['amount'];
     }
 
-    /**
-     * @return string
-     */
-    public function currency(): string
+    public function originAmount(): int
     {
-        return $this->parameters['p24_currency'];
+        return $this->parameters['originAmount'];
     }
 
-    /**
-     * @return int
-     */
+    public function currency(): Currency
+    {
+        return Currency::from($this->parameters['currency']);
+    }
+
     public function orderId(): int
     {
-        return $this->parameters['p24_order_id'];
+        return $this->parameters['orderId'];
     }
 
-    /**
-     * @return string
-     */
-    public function method(): string
+    public function methodId(): int
     {
-        return $this->parameters['p24_method'];
+        return $this->parameters['methodId'];
     }
 
-    /**
-     * @return string
-     */
     public function statement(): string
     {
-        return $this->parameters['p24_statement'];
+        return $this->parameters['statement'];
     }
 
-    /**
-     * @return string
-     */
     public function sign(): string
     {
-        return $this->parameters['p24_sign'];
+        return $this->parameters['sign'];
     }
 
-    /**
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return $this->parameters;
+    public function isSignValid(
+        string $sessionId,
+        int $amount,
+        int $originAmount,
+        int $orderId,
+        int $methodId,
+        string $statement,
+        Currency $currency = Currency::PLN,
+    ): bool {
+        $sign = Przelewy24::createSignature([
+            'merchantId' => $this->config->merchantId(),
+            'posId' => $this->config->posId(),
+            'sessionId' => $sessionId,
+            'amount' => $amount,
+            'originAmount' => $originAmount,
+            'currency' => $currency->value,
+            'orderId' => $orderId,
+            'methodId' => $methodId,
+            'statement' => $statement,
+            'crc' => $this->config->crc(),
+        ]);
+
+        return $this->sign() === $sign;
     }
 }

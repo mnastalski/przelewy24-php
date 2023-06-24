@@ -2,66 +2,48 @@
 
 namespace Przelewy24;
 
-use Przelewy24\Api\Api;
-use Przelewy24\Api\Response\RegisterTransactionResponse;
-use Przelewy24\Api\Response\VerifyTransactionResponse;
+use Przelewy24\Api\Requests\PaymentRequests;
+use Przelewy24\Api\Requests\TestRequests;
+use Przelewy24\Api\Requests\TransactionRequests;
 
 class Przelewy24
 {
-    /**
-     * @var \Przelewy24\Config
-     */
-    private $config;
+    private Config $config;
 
-    /**
-     * @var \Przelewy24\Api\Api
-     */
-    private $api;
-
-    /**
-     * @param array $parameters
-     */
-    public function __construct(array $parameters)
-    {
-        $this->config = new Config($parameters);
-        $this->api = new Api($this->config);
+    public function __construct(
+        int $merchantId,
+        string $reportsKey,
+        string $crc,
+        bool $isLive = false,
+        ?string $posId = null,
+    ) {
+        $this->config = new Config($merchantId, $reportsKey, $crc, $isLive, $posId);
     }
 
-    /**
-     * @param array|\Przelewy24\Transaction $transaction
-     * @return \Przelewy24\Api\Response\RegisterTransactionResponse
-     * @throws \Przelewy24\Exceptions\ApiResponseException
-     */
-    public function transaction($transaction): RegisterTransactionResponse
+    public static function createSignature(array $parameters): string
     {
-        if (is_array($transaction)) {
-            $transaction = new Transaction($transaction);
-        }
+        $json = json_encode($parameters, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-        return $this->api->registerTransaction($transaction);
+        return hash('sha384', $json);
     }
 
-    /**
-     * @param array|\Przelewy24\TransactionVerification $verification
-     * @return \Przelewy24\Api\Response\VerifyTransactionResponse
-     * @throws \Przelewy24\Exceptions\ApiResponseException
-     */
-    public function verify($verification): VerifyTransactionResponse
+    public function tests(): TestRequests
     {
-        if (is_array($verification)) {
-            $verification = new TransactionVerification($verification);
-        }
-
-        return $this->api->verifyTransaction($verification);
+        return new TestRequests($this->config);
     }
 
-    /**
-     * @return \Przelewy24\TransactionStatusNotification
-     */
-    public function handleWebhook(): TransactionStatusNotification
+    public function payments(): PaymentRequests
     {
-        parse_str(file_get_contents('php://input'), $data);
+        return new PaymentRequests($this->config);
+    }
 
-        return new TransactionStatusNotification($data);
+    public function transactions(): TransactionRequests
+    {
+        return new TransactionRequests($this->config);
+    }
+
+    public function handleWebhook(array $requestData): TransactionStatusNotification
+    {
+        return new TransactionStatusNotification($this->config, $requestData);
     }
 }
