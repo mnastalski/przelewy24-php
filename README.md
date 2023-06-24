@@ -58,7 +58,7 @@ $transaction = $przelewy24->transactions()->register(
 
 Note that `amount` is passed as an integer, so if the actual amount is `1.25 PLN` you will need to pass `125` as value.
 
-For the complete list of available parameters check the signature of [TransactionRequests::register()](https://github.com/mnastalski/przelewy24-php/tree/master/src/Api/Request/TransactionRequests.php).
+For the complete list of available parameters check the signature of [TransactionRequests::register()](src/Api/Requests/TransactionRequests.php#L22).
 
 #### Return the transaction's token:
 
