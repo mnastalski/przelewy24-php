@@ -33,7 +33,7 @@ $przelewy24 = new Przelewy24(
 );
 ```
 
-Use `live: true` for production/live mode.
+Setting `live` to `false` will use the [sandbox environment](https://sandbox.przelewy24.pl/panel/). Set it to `true` to use production/live mode.
 
 ### Creating a transaction
 
