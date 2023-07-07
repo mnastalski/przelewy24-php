@@ -29,7 +29,7 @@ $przelewy24 = new Przelewy24(
     merchantId: 12345,
     reportsKey: 'f0ae...',
     crc: 'aef0...',
-    live: false,
+    isLive: false,
 );
 ```
 
