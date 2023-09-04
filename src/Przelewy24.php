@@ -2,6 +2,7 @@
 
 namespace Przelewy24;
 
+use Przelewy24\Api\Requests\CardRequests;
 use Przelewy24\Api\Requests\PaymentRequests;
 use Przelewy24\Api\Requests\TestRequests;
 use Przelewy24\Api\Requests\TransactionRequests;
@@ -42,8 +43,18 @@ class Przelewy24
         return new TransactionRequests($this->config);
     }
 
+    public function cards(): CardRequests
+    {
+        return new CardRequests($this->config);
+    }
+
     public function handleWebhook(array $requestData): TransactionStatusNotification
     {
         return new TransactionStatusNotification($this->config, $requestData);
+    }
+
+    public function handleCardPaymentWebhook(array $requestData): CardPaymentNotification
+    {
+        return new CardPaymentNotification($this->config, $requestData);
     }
 }
