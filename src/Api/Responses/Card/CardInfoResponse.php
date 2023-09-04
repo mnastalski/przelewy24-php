@@ -6,9 +6,8 @@ use Przelewy24\Api\Responses\AbstractResponse;
 
 class CardInfoResponse extends AbstractResponse
 {
-
     /**
-     * Gets the refId
+     * Gets the refId.
      *
      * @return string|null
      */
@@ -18,7 +17,7 @@ class CardInfoResponse extends AbstractResponse
     }
 
     /**
-     * Gets the bin
+     * Gets the bin.
      *
      * @return int|null
      */
@@ -28,7 +27,7 @@ class CardInfoResponse extends AbstractResponse
     }
 
     /**
-     * Gets the mask
+     * Gets the mask.
      *
      * @return string|null
      */
@@ -38,7 +37,7 @@ class CardInfoResponse extends AbstractResponse
     }
 
     /**
-     * Gets the cardType
+     * Gets the cardType.
      *
      * @return string|null
      */
@@ -48,7 +47,7 @@ class CardInfoResponse extends AbstractResponse
     }
 
     /**
-     * Gets the cardDate
+     * Gets the cardDate.
      *
      * @return string|null
      */
@@ -58,7 +57,7 @@ class CardInfoResponse extends AbstractResponse
     }
 
     /**
-     * Gets the hash
+     * Gets the hash.
      *
      * @return string|null
      */

@@ -2,19 +2,19 @@
 
 namespace Przelewy24\Api\Requests;
 
+use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\RequestOptions;
 use Przelewy24\Api\Api;
 use Przelewy24\Api\Responses\Card\CardChargeResponse;
 use Przelewy24\Api\Responses\Card\CardChargeWith3dsResponse;
 use Przelewy24\Api\Responses\Card\CardInfoResponse;
-use GuzzleHttp\Exception\BadResponseException;
 use Przelewy24\Api\Responses\Card\CardPaymentResponse;
 use Przelewy24\Exceptions\Przelewy24Exception;
 
 class CardRequests extends Api
 {
     /**
-     * Gets the card info for given order ID
+     * Gets the card info for given order ID.
      *
      * @param string $orderId
      * @return CardInfoResponse
@@ -32,7 +32,7 @@ class CardRequests extends Api
     }
 
     /**
-     * Charges the card with given token
+     * Charges the card with given token.
      *
      * @param string $token
      * @return CardChargeResponse
@@ -44,7 +44,7 @@ class CardRequests extends Api
             return CardChargeResponse::fromResponse(
                 $this->client()->post('api/v1/card/charge', [
                     RequestOptions::JSON => [
-                        'token' => $token
+                        'token' => $token,
                     ],
                 ])
             );
@@ -54,7 +54,7 @@ class CardRequests extends Api
     }
 
     /**
-     * Charges the card with given token
+     * Charges the card with given token.
      *
      * @param string $token
      * @return CardChargeWith3dsResponse
@@ -66,7 +66,7 @@ class CardRequests extends Api
             return CardChargeWith3dsResponse::fromResponse(
                 $this->client()->post('api/v1/card/chargeWith3ds', [
                     RequestOptions::JSON => [
-                        'token' => $token
+                        'token' => $token,
                     ],
                 ])
             );
@@ -76,7 +76,7 @@ class CardRequests extends Api
     }
 
     /**
-     * Performs card payment
+     * Performs card payment.
      *
      * @param string $transactionToken
      * @param string $cardNumber
@@ -97,7 +97,7 @@ class CardRequests extends Api
                             'cardNumber' => $cardNumber,
                             'cardDate' => $cardDate,
                             'cvv' => $cardCvv,
-                            'clientName' => $clientName
+                            'clientName' => $clientName,
                         ],
                     ]
                 )

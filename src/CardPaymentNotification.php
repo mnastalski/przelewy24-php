@@ -2,8 +2,6 @@
 
 namespace Przelewy24;
 
-use Przelewy24\Enums\Currency;
-
 class CardPaymentNotification
 {
     public function __construct(private Config $config, private array $data)
@@ -11,7 +9,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the amount
+     * Gets the amount.
      *
      * @return int|null
      */
@@ -21,7 +19,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the 3ds
+     * Gets the 3ds.
      *
      * @return int|null
      */
@@ -31,7 +29,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the method
+     * Gets the method.
      *
      * @return int|null
      */
@@ -41,7 +39,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the refId
+     * Gets the refId.
      *
      * @return string|null
      */
@@ -51,7 +49,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the orderId
+     * Gets the orderId.
      *
      * @return string|null
      */
@@ -61,7 +59,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the sessionId
+     * Gets the sessionId.
      *
      * @return string|null
      */
@@ -71,7 +69,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the bin
+     * Gets the bin.
      *
      * @return int|null
      */
@@ -81,7 +79,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the maskedCCNumber
+     * Gets the maskedCCNumber.
      *
      * @return string|null
      */
@@ -91,7 +89,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the ccExp
+     * Gets the ccExp.
      *
      * @return string|null
      */
@@ -101,7 +99,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the hash
+     * Gets the hash.
      *
      * @return string|null
      */
@@ -111,7 +109,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the cardCountry
+     * Gets the cardCountry.
      *
      * @return string|null
      */
@@ -121,7 +119,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the risk
+     * Gets the risk.
      *
      * @return int|null
      */
@@ -131,7 +129,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the liabilityshift
+     * Gets the liabilityshift.
      *
      * @return bool|null
      */
@@ -141,7 +139,7 @@ class CardPaymentNotification
     }
 
     /**
-     * Gets the sign
+     * Gets the sign.
      *
      * @return string|null
      */
@@ -151,10 +149,11 @@ class CardPaymentNotification
     }
 
     /**
-     * Checks the response signature
+     * Checks the response signature.
      * @return bool
      */
-    public function isSignValid(): bool {
+    public function isSignValid(): bool
+    {
         $sign = Przelewy24::createSignature([
             'amount' => $this->amount(),
             '3ds' => $this->is3ds(),

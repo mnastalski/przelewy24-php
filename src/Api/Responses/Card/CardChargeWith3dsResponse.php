@@ -7,7 +7,7 @@ use Przelewy24\Api\Responses\AbstractResponse;
 class CardChargeWith3dsResponse extends AbstractResponse
 {
     /**
-     * Gets the orderId
+     * Gets the orderId.
      *
      * @return string|null
      */
@@ -17,7 +17,7 @@ class CardChargeWith3dsResponse extends AbstractResponse
     }
 
     /**
-     * Gets the redirectUrl
+     * Gets the redirectUrl.
      *
      * @return string|null
      */
