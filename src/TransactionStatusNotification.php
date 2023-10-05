@@ -6,15 +6,10 @@ use Przelewy24\Enums\Currency;
 
 class TransactionStatusNotification
 {
-    private Config $config;
-
-    private array $parameters;
-
-    public function __construct(Config $config, array $parameters)
-    {
-        $this->config = $config;
-        $this->parameters = $parameters;
-    }
+    public function __construct(
+        private readonly Config $config,
+        private readonly array $parameters,
+    ) {}
 
     public function merchantId(): int
     {

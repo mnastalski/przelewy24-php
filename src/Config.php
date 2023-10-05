@@ -4,29 +4,13 @@ namespace Przelewy24;
 
 class Config
 {
-    private int $merchantId;
-
-    private string $reportsKey;
-
-    private string $crc;
-
-    private bool $isLive;
-
-    private ?int $posId;
-
     public function __construct(
-        int $merchantId,
-        string $reportsKey,
-        string $crc,
-        bool $isLive = false,
-        ?int $posId = null,
-    ) {
-        $this->merchantId = $merchantId;
-        $this->crc = $crc;
-        $this->reportsKey = $reportsKey;
-        $this->isLive = $isLive;
-        $this->posId = $posId;
-    }
+        private readonly int $merchantId,
+        private readonly string $reportsKey,
+        private readonly string $crc,
+        private readonly bool $isLive = false,
+        private readonly ?int $posId = null,
+    ) {}
 
     public function merchantId(): int
     {

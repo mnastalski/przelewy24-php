@@ -9,9 +9,7 @@ abstract class AbstractResponse
 {
     public function __construct(
         protected readonly array $parameters,
-    ) {
-        //
-    }
+    ) {}
 
     public static function fromResponse(ResponseInterface $response): static
     {

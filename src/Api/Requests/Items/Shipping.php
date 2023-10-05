@@ -13,9 +13,7 @@ class Shipping
         private readonly string $zip,
         private readonly string $city,
         private readonly Country $country = Country::POLAND,
-    ) {
-        //
-    }
+    ) {}
 
     public function toArray(): array
     {
