@@ -12,9 +12,7 @@ class CartItem
         private readonly ?int $quantity = null,
         private readonly ?int $price = null,
         private readonly ?string $number = null,
-    ) {
-        //
-    }
+    ) {}
 
     public function toArray(): array
     {

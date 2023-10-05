@@ -13,14 +13,11 @@ class Api
 
     private const URL_SANDBOX = 'https://sandbox.przelewy24.pl/';
 
-    protected Config $config;
-
     private ?GuzzleClient $client = null;
 
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
-    }
+    public function __construct(
+        protected readonly Config $config,
+    ) {}
 
     protected function client(): ClientInterface
     {

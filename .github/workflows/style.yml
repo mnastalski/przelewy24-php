@@ -25,4 +25,4 @@ jobs:
           command: composer install --no-interaction --no-progress
 
       - name: Run PHP CS Fixer
-        run: vendor/bin/php-cs-fixer fix -v --dry-run
+        run: vendor/bin/php-cs-fixer check -v
