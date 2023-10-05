@@ -47,6 +47,7 @@ class TransactionRequests extends Api
         ?string $methodRefId = null,
         ?array $cart = null,
         ?Shipping $shippingData = null,
+        ?string $urlCardPaymentNotification = null,
     ): RegisterTransactionResponse {
         $sign = Przelewy24::createSignature([
             'sessionId' => $sessionId,
@@ -85,6 +86,7 @@ class TransactionRequests extends Api
             'sign' => $sign,
             'encoding' => $encoding->value,
             'methodRefId' => $methodRefId,
+            'urlCardPaymentNotification' => $urlCardPaymentNotification,
         ];
 
         if ($cart) {
