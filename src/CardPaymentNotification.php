@@ -2,175 +2,129 @@
 
 namespace Przelewy24;
 
-class CardPaymentNotification
+class CardPaymentNotification extends AbstractNotification
 {
-    public function __construct(private Config $config, private array $data)
-    {
-    }
-
-    /**
-     * Gets the amount.
-     *
-     * @return int|null
-     */
     public function amount(): ?int
     {
-        return $this->data['amount'] ?? null;
+        return $this->get('amount');
     }
 
-    /**
-     * Gets the 3ds.
-     *
-     * @return int|null
-     */
-    public function is3ds(): ?int
+    public function is3ds(): ?bool
     {
-        return $this->data['3ds'] ?? null;
+        return $this->get('3ds');
     }
 
-    /**
-     * Gets the method.
-     *
-     * @return int|null
-     */
     public function method(): ?int
     {
-        return $this->data['method'] ?? null;
+        return $this->get('method');
     }
 
-    /**
-     * Gets the refId.
-     *
-     * @return string|null
-     */
     public function refId(): ?string
     {
-        return $this->data['refId'] ?? null;
+        return $this->get('refId');
     }
 
-    /**
-     * Gets the orderId.
-     *
-     * @return string|null
-     */
-    public function orderId(): ?string
+    public function orderId(): ?int
     {
-        return $this->data['orderId'] ?? null;
+        return $this->get('orderId');
     }
 
-    /**
-     * Gets the sessionId.
-     *
-     * @return string|null
-     */
     public function sessionId(): ?string
     {
-        return $this->data['sessionId'] ?? null;
+        return $this->get('sessionId');
     }
 
-    /**
-     * Gets the bin.
-     *
-     * @return int|null
-     */
     public function bin(): ?int
     {
-        return $this->data['bin'] ?? null;
+        return $this->get('bin');
     }
 
-    /**
-     * Gets the maskedCCNumber.
-     *
-     * @return string|null
-     */
     public function maskedCCNumber(): ?string
     {
-        return $this->data['maskedCCNumber'] ?? null;
+        return $this->get('maskedCCNumber');
     }
 
-    /**
-     * Gets the ccExp.
-     *
-     * @return string|null
-     */
     public function ccExp(): ?string
     {
-        return $this->data['ccExp'] ?? null;
+        return $this->get('ccExp');
     }
 
-    /**
-     * Gets the hash.
-     *
-     * @return string|null
-     */
     public function hash(): ?string
     {
-        return $this->data['hash'] ?? null;
+        return $this->get('hash');
     }
 
-    /**
-     * Gets the cardCountry.
-     *
-     * @return string|null
-     */
     public function cardCountry(): ?string
     {
-        return $this->data['cardCountry'] ?? null;
+        return $this->get('cardCountry');
     }
 
-    /**
-     * Gets the risk.
-     *
-     * @return int|null
-     */
     public function risk(): ?int
     {
-        return $this->data['rist'] ?? null;
+        return $this->get('risk');
     }
 
-    /**
-     * Gets the liabilityshift.
-     *
-     * @return bool|null
-     */
     public function liabilityshift(): ?bool
     {
-        return $this->data['liabilityshift'] ?? null;
+        return $this->get('liabilityshift');
     }
 
-    /**
-     * Gets the sign.
-     *
-     * @return string|null
-     */
     public function sign(): ?string
     {
-        return $this->data['sign'] ?? null;
+        return $this->get('sign');
+    }
+
+    public function errorCode(): ?string
+    {
+        return $this->get('errorCode');
+    }
+
+    public function errorMessage(): ?string
+    {
+        return $this->get('errorMessage');
     }
 
     /**
-     * Checks the response signature.
-     * @return bool
+     * @inheritDoc
      */
-    public function isSignValid(): bool
+    public function isSignatureValid(): bool
     {
-        $sign = Przelewy24::createSignature([
-            'amount' => $this->amount(),
-            '3ds' => $this->is3ds(),
-            'method' => $this->method(),
-            'refId' => $this->refId(),
-            'orderId' => $this->orderId(),
-            'sessionId' => $this->sessionId(),
-            'bin' => $this->bin(),
-            'maskedCCNumber' => $this->maskedCCNumber(),
-            'ccExp' => $this->ccExp(),
-            'hash' => $this->hash(),
-            'cardCountry' => $this->cardCountry(),
-            'rist' => $this->risk(),
-            'liabilityshift' => $this->liabilityshift(),
+        return $this->sign() === $this->calculateSign();
+    }
+
+    /**
+     * Calculates the signature of the notification.
+     */
+    private function calculateSign(): string
+    {
+        if ($this->errorCode()) {
+            return Przelewy24::createSignature([
+                'amount' => (int) $this->amount(),
+                '3ds' => (bool) $this->is3ds(),
+                'method' => (int) $this->method(),
+                'orderId' => (int) $this->orderId(),
+                'sessionId' => (string) $this->sessionId(),
+                'errorCode' => (string) $this->errorCode(),
+                'errorMessage' => (string) $this->errorMessage(),
+                'crc' => $this->config->crc(),
+            ]);
+        }
+
+        return Przelewy24::createSignature([
+            'amount' => (int) $this->amount(),
+            '3ds' => (bool) $this->is3ds(),
+            'method' => (int) $this->method(),
+            'refId' => (string) $this->refId(),
+            'orderId' => (int) $this->orderId(),
+            'sessionId' => (string) $this->sessionId(),
+            'bin' => (int) $this->bin(),
+            'maskedCCNumber' => (string) $this->maskedCCNumber(),
+            'ccExp' => (string) $this->ccExp(),
+            'hash' => (string) $this->hash(),
+            'cardCountry' => (string) $this->cardCountry(),
+            'risk' => (int) $this->risk(),
+            'liabilityshift' => (bool) $this->liabilityshift(),
             'crc' => $this->config->crc(),
         ]);
-
-        return $this->sign() === $sign;
     }
 }
