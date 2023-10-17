@@ -2,7 +2,7 @@
 
 namespace Przelewy24;
 
-class CardPaymentNotification extends AbstractNotification
+class CardNotification extends AbstractNotification
 {
     public function amount(): ?int
     {

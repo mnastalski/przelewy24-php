@@ -53,9 +53,9 @@ class Przelewy24
         return new TransactionStatusNotification($this->config, $requestData);
     }
 
-    public function handleCardPaymentWebhook(array $requestData): CardPaymentNotification
+    public function handleCardWebhook(array $requestData): CardNotification
     {
-        return new CardPaymentNotification($this->config, $requestData);
+        return new CardNotification($this->config, $requestData);
     }
 
     public function handleRefundWebhook(array $requestData): RefundNotification
