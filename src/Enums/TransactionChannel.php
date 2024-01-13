@@ -13,4 +13,6 @@ enum TransactionChannel: int
     case INSTALLMENTS = 128;
     case WALLETS = 256;
     case CARDS_ONLY = 4096;
+    case BLIK = 8192;
+    case ALL_EXCEPT_BLIK = 16384;
 }
