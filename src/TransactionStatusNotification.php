@@ -4,63 +4,70 @@ namespace Przelewy24;
 
 use Przelewy24\Enums\Currency;
 
-class TransactionStatusNotification
+class TransactionStatusNotification extends AbstractNotification
 {
-    public function __construct(
-        private readonly Config $config,
-        private readonly array $parameters,
-    ) {}
-
-    public function merchantId(): int
+    public function merchantId(): ?int
     {
-        return $this->parameters['merchantId'];
+        return $this->get('merchantId');
     }
 
-    public function posId(): int
+    public function posId(): ?int
     {
-        return $this->parameters['posId'];
+        return $this->get('posId');
     }
 
-    public function sessionId(): string
+    public function sessionId(): ?string
     {
-        return $this->parameters['sessionId'];
+        return $this->get('sessionId');
     }
 
-    public function amount(): int
+    public function amount(): ?int
     {
-        return $this->parameters['amount'];
+        return $this->get('amount');
     }
 
-    public function originAmount(): int
+    public function originAmount(): ?int
     {
-        return $this->parameters['originAmount'];
+        return $this->get('originAmount');
     }
 
-    public function currency(): Currency
+    public function currency(): ?Currency
     {
-        return Currency::from($this->parameters['currency']);
+        return Currency::tryFrom($this->get('currency'));
     }
 
-    public function orderId(): int
+    public function orderId(): ?int
     {
-        return $this->parameters['orderId'];
+        return $this->get('orderId');
     }
 
-    public function methodId(): int
+    public function methodId(): ?int
     {
-        return $this->parameters['methodId'];
+        return $this->get('methodId');
     }
 
-    public function statement(): string
+    public function statement(): ?string
     {
-        return $this->parameters['statement'];
+        return $this->get('statement');
     }
 
-    public function sign(): string
+    public function sign(): ?string
     {
-        return $this->parameters['sign'];
+        return $this->get('sign');
     }
 
+    /**
+     * @deprecated Use isSignatureValid instead
+     *
+     * @param string $sessionId
+     * @param int $amount
+     * @param int $originAmount
+     * @param int $orderId
+     * @param int $methodId
+     * @param string $statement
+     * @param Currency $currency
+     * @return bool
+     */
     public function isSignValid(
         string $sessionId,
         int $amount,
@@ -84,5 +91,32 @@ class TransactionStatusNotification
         ]);
 
         return $this->sign() === $sign;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isSignatureValid(): bool
+    {
+        return $this->sign() === $this->calculateSign();
+    }
+
+    /**
+     * Calculates the signature of the notification.
+     */
+    private function calculateSign(): string
+    {
+        return Przelewy24::createSignature([
+            'merchantId' => $this->config->merchantId(),
+            'posId' => $this->config->posId(),
+            'sessionId' => (string) $this->sessionId(),
+            'amount' => (int) $this->amount(),
+            'originAmount' => (int) $this->originAmount(),
+            'currency' => (string) $this->currency()?->value,
+            'orderId' => (int) $this->orderId(),
+            'methodId' => (int) $this->methodId(),
+            'statement' => (string) $this->statement(),
+            'crc' => $this->config->crc(),
+        ]);
     }
 }
