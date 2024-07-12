@@ -15,4 +15,11 @@ enum TransactionChannel: int
     case CARDS_ONLY = 4096;
     case BLIK = 8192;
     case ALL_EXCEPT_BLIK = 16384;
+
+    public static function multiple(array $channels): int
+    {
+        return array_sum(
+            array_map(fn (TransactionChannel $channel): int => $channel->value, $channels)
+        );
+    }
 }
