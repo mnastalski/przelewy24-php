@@ -12,7 +12,7 @@ class Przelewy24Exception extends BadResponseException
         return new static($exception->getMessage(), $exception->getRequest(), $exception->getResponse(), $exception->getPrevious(), $exception->getHandlerContext());
     }
 
-    public function errorMessage(): ?string
+    public function errorMessage(): array | string | null
     {
         $contents = Json::decodeResponse($this->getResponse());
 

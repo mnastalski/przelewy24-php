@@ -13,7 +13,7 @@ class FindTransactionResponseTest extends TestCase
         $response = new FindTransactionResponse([
             'data' => [
                 'orderId' => 123456789,
-                'sessionId' => '97d9ae',
+                'sessionId' => '0beec7',
                 'status' => 1,
                 'amount' => 1500,
                 'currency' => 'PLN',
@@ -35,7 +35,7 @@ class FindTransactionResponseTest extends TestCase
         ]);
 
         $this->assertSame(123456789, $response->orderId());
-        $this->assertSame('97d9ae', $response->sessionId());
+        $this->assertSame('0beec7', $response->sessionId());
         $this->assertSame(1, $response->status());
         $this->assertSame(1500, $response->amount());
         $this->assertSame(Currency::PLN, $response->currency());

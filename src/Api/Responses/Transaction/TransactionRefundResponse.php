@@ -8,9 +8,13 @@ class TransactionRefundResponse extends AbstractResponse
 {
     public function refunds(): array
     {
-        return array_map(
-            fn (array $data) => TransactionRefundItem::fromArray($data),
-            $this->parameters['data']
-        );
+        return array_map(fn (array $data): TransactionRefundItem => new TransactionRefundItem(
+            orderId: $data['orderId'],
+            sessionId: $data['sessionId'],
+            amount: $data['amount'],
+            status: $data['status'],
+            message: $data['message'],
+            description: $data['description'],
+        ), $this->parameters['data']);
     }
 }

@@ -72,7 +72,7 @@ $transaction->token();
 $transaction->gatewayUrl();
 ```
 
-### Listening for transaction status webhook
+### Listening for transaction registration status webhook
 
 To parse the webhook's payload, pass the whole request's POST data as an array to `handleWebhook()`:
 
@@ -107,6 +107,48 @@ $przelewy24->transactions()->verify(
 ```
 
 Similarly to registering a transaction, the `amount` is passed as an integer.
+
+### Refunding transactions
+
+```php
+$refund = $przelewy24->transactions()->refund(
+    requestId: 'unique request identifier from your application',
+    refundsId: 'unique refunds identifier from your application',
+    refunds: [
+        new RefundItem(
+            orderId: $webhook->orderId(),
+            sessionId: 'unique order identifier from your application',
+            amount: 2100,
+            description: 'item #1',
+        ),
+        new RefundItem(
+            orderId: $webhook->orderId(),
+            sessionId: 'unique order identifier from your application',
+            amount: 125,
+            description: 'item #2',
+        ),
+    ],
+    urlStatus: 'url to which the refund status webhook will be sent',
+);
+```
+
+#### Return the refunds' item list:
+
+```php
+$refund->refunds();
+````
+
+### Listening for transaction refund status webhook
+
+To parse the webhook's payload, pass the whole request's POST data as an array to `handleRefundWebhook()`:
+
+```php
+// $requestData = $request->request->all();
+// $requestData = $request->post();
+// $requestData = json_decode(file_get_contents('php://input'), true);
+
+$webhook = $przelewy24->handleRefundWebhook($requestData);
+```
 
 ### Error handling
 

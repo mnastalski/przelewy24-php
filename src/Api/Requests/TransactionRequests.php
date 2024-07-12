@@ -156,7 +156,7 @@ class TransactionRequests extends Api
 
     public function refund(
         string $requestId,
-        string $refundId,
+        string $refundsId,
         array $refunds,
         ?string $urlStatus = null,
     ): TransactionRefundResponse {
@@ -164,7 +164,7 @@ class TransactionRequests extends Api
             $response = $this->client()->post('api/v1/transaction/refund', [
                 RequestOptions::JSON => [
                     'requestId' => $requestId,
-                    'refundsUuid' => $refundId,
+                    'refundsUuid' => $refundsId,
                     'refunds' => array_map(fn (RefundItem $item): array => $item->toArray(), $refunds),
                     'urlStatus' => $urlStatus,
                 ],
