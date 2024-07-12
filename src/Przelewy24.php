@@ -46,4 +46,9 @@ class Przelewy24
     {
         return new TransactionStatusNotification($this->config, $requestData);
     }
+
+    public function handleRefundWebhook(array $requestData): RefundNotification
+    {
+        return new RefundNotification($this->config, $requestData);
+    }
 }
