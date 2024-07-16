@@ -35,6 +35,20 @@ $przelewy24 = new Przelewy24(
 
 Setting `isLive` to `false` will use the [sandbox environment](https://sandbox.przelewy24.pl/panel/). Set it to `true` to use production/live mode.
 
+### Testing the connection
+
+You may use the following method to test if the connection to Przelewy24's API using provided credentials is working:
+
+```php
+$test = $przelewy24->tests()->testAccess();
+
+var_dump($test->data());
+```
+
+```
+bool(true)
+```
+
 ### Creating a transaction
 
 ```php
