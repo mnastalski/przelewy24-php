@@ -10,6 +10,7 @@ use Przelewy24\Api\Requests\Items\RefundItem;
 use Przelewy24\Api\Requests\Items\Shipping;
 use Przelewy24\Api\Responses\Transaction\FindTransactionResponse;
 use Przelewy24\Api\Responses\Transaction\RegisterTransactionResponse;
+use Przelewy24\Api\Responses\Transaction\TransactionFindRefundResponse;
 use Przelewy24\Api\Responses\Transaction\TransactionRefundResponse;
 use Przelewy24\Api\Responses\Transaction\VerifyTransactionResponse;
 use Przelewy24\Enums\Country;
@@ -171,6 +172,17 @@ class TransactionRequests extends Api
             ]);
 
             return TransactionRefundResponse::fromResponse($response);
+        } catch (BadResponseException $exception) {
+            throw Przelewy24Exception::fromBadResponseException($exception);
+        }
+    }
+
+    public function findRefund(int $orderId): TransactionFindRefundResponse
+    {
+        try {
+            $response = $this->client()->get("api/v1/refund/by/orderId/{$orderId}");
+
+            return TransactionFindRefundResponse::fromResponse($response);
         } catch (BadResponseException $exception) {
             throw Przelewy24Exception::fromBadResponseException($exception);
         }
