@@ -10,8 +10,8 @@ class CartItemTest extends TestCase
     public function testToArray(): void
     {
         $cartItem = new CartItem(
-            sellerId: 123,
-            sellerCategory: 456,
+            sellerId: 'seller_1',
+            sellerCategory: 'category',
             name: 'Name',
             description: 'Description',
             quantity: 2,
@@ -19,9 +19,9 @@ class CartItemTest extends TestCase
             number: '00013'
         );
 
-        $this->assertEquals([
-            'sellerId' => 123,
-            'sellerCategory' => 456,
+        $this->assertSame([
+            'sellerId' => 'seller_1',
+            'sellerCategory' => 'category',
             'name' => 'Name',
             'description' => 'Description',
             'quantity' => 2,

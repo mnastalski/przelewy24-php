@@ -16,7 +16,7 @@ class RefundItemTest extends TestCase
             description: 'Description',
         );
 
-        $this->assertEquals([
+        $this->assertSame([
             'orderId' => 123456789,
             'sessionId' => '0beec7',
             'amount' => 1500,

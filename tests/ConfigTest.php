@@ -11,10 +11,10 @@ class ConfigTest extends TestCase
     {
         $config = new Config(12345, 'foo', 'bar', true, 123);
 
-        $this->assertEquals(12345, $config->merchantId());
-        $this->assertEquals(123, $config->posId());
-        $this->assertEquals('foo', $config->reportsKey());
-        $this->assertEquals('bar', $config->crc());
+        $this->assertSame(12345, $config->merchantId());
+        $this->assertSame(123, $config->posId());
+        $this->assertSame('foo', $config->reportsKey());
+        $this->assertSame('bar', $config->crc());
         $this->assertTrue($config->isLiveMode());
     }
 
@@ -22,7 +22,7 @@ class ConfigTest extends TestCase
     {
         $config = new Config(12345, 'foo', 'bar');
 
-        $this->assertEquals(12345, $config->merchantId());
-        $this->assertEquals(12345, $config->posId());
+        $this->assertSame(12345, $config->merchantId());
+        $this->assertSame(12345, $config->posId());
     }
 }

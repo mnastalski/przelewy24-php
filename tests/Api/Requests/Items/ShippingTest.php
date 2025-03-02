@@ -19,7 +19,7 @@ class ShippingTest extends TestCase
             country: Country::UNITED_KINGDOM
         );
 
-        $this->assertEquals([
+        $this->assertSame([
             'type' => ShippingType::PARCEL_LOCKER->value,
             'address' => 'Address',
             'zip' => '10-123',

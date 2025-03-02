@@ -14,7 +14,7 @@ class PsuTest extends TestCase
             userAgent: 'Firefox',
         );
 
-        $this->assertEquals([
+        $this->assertSame([
             'IP' => '127.0.0.1',
             'userAgent' => 'Firefox',
         ], $cartItem->toArray());

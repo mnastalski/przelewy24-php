@@ -26,15 +26,15 @@ class RefundNotificationTest extends TestCase
             'sign' => '689010bfd5819bcf683ee0556c0412808b760063a6a66ed4d305d9d85b0bb16ab38bc8fcd0808c85f977f5a041344688',
         ]);
 
-        $this->assertEquals(123456789, $transaction->orderId());
-        $this->assertEquals('0beec7', $transaction->sessionId());
-        $this->assertEquals(12345, $transaction->merchantId());
-        $this->assertEquals('ac0efa', $transaction->requestId());
-        $this->assertEquals('dda251', $transaction->refundsUuid());
-        $this->assertEquals(1500, $transaction->amount());
-        $this->assertEquals(Currency::PLN, $transaction->currency());
-        $this->assertEquals(1706389444, $transaction->timestamp());
-        $this->assertEquals(0, $transaction->status());
+        $this->assertSame(123456789, $transaction->orderId());
+        $this->assertSame('0beec7', $transaction->sessionId());
+        $this->assertSame(12345, $transaction->merchantId());
+        $this->assertSame('ac0efa', $transaction->requestId());
+        $this->assertSame('dda251', $transaction->refundsUuid());
+        $this->assertSame(1500, $transaction->amount());
+        $this->assertSame(Currency::PLN, $transaction->currency());
+        $this->assertSame(1706389444, $transaction->timestamp());
+        $this->assertSame(0, $transaction->status());
 
         $isSignValid = $transaction->isSignValid(
             orderId: 123456789,

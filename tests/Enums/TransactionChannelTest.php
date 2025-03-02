@@ -15,6 +15,6 @@ class TransactionChannelTest extends TestCase
             TransactionChannel::BLIK,
         ]);
 
-        $this->assertEquals(1 + 4 + 8192, $multiple);
+        $this->assertSame(1 + 4 + 8192, $multiple);
     }
 }
