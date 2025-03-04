@@ -6,6 +6,7 @@ use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\RequestOptions;
 use Przelewy24\Api\Api;
 use Przelewy24\Api\Requests\Items\CartItem;
+use Przelewy24\Api\Requests\Items\Psu;
 use Przelewy24\Api\Requests\Items\RefundItem;
 use Przelewy24\Api\Requests\Items\Shipping;
 use Przelewy24\Api\Responses\Transaction\FindTransactionResponse;
@@ -50,6 +51,7 @@ class TransactionRequests extends Api
         ?array $cart = null,
         ?Shipping $shippingData = null,
         ?string $urlCardPaymentNotification = null,
+        ?Psu $psu = null,
     ): RegisterTransactionResponse {
         $sign = Przelewy24::createSignature([
             'sessionId' => $sessionId,
@@ -97,6 +99,10 @@ class TransactionRequests extends Api
 
         if ($shippingData) {
             $json['additional']['shipping'] = $shippingData->toArray();
+        }
+
+        if ($psu) {
+            $json['additional']['PSU'] = $psu->toArray();
         }
 
         try {
