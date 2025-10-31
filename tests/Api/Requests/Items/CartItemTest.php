@@ -16,7 +16,7 @@ class CartItemTest extends TestCase
             description: 'Description',
             quantity: 2,
             price: 1500,
-            number: '00013'
+            number: '00013',
         );
 
         $this->assertSame([

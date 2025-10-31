@@ -94,7 +94,7 @@ class TransactionRequests extends Api
         ];
 
         if ($cart) {
-            $json['cart'] = array_map(fn (CartItem $item): array => $item->toArray(), $cart);
+            $json['cart'] = array_map(fn(CartItem $item): array => $item->toArray(), $cart);
         }
 
         if ($shippingData) {
@@ -127,7 +127,7 @@ class TransactionRequests extends Api
                 'sessionId' => $sessionId,
                 'orderId' => $orderId,
                 'amount' => $amount,
-                'currency' => $currency->value,
+                'currency' => $currency?->value,
                 'crc' => $this->config->crc(),
             ]);
 
@@ -171,7 +171,7 @@ class TransactionRequests extends Api
                 RequestOptions::JSON => [
                     'requestId' => $requestId,
                     'refundsUuid' => $refundsId,
-                    'refunds' => array_map(fn (RefundItem $item): array => $item->toArray(), $refunds),
+                    'refunds' => array_map(fn(RefundItem $item): array => $item->toArray(), $refunds),
                     'urlStatus' => $urlStatus,
                 ],
             ]);

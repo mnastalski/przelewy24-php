@@ -19,7 +19,7 @@ enum TransactionChannel: int
     public static function multiple(array $channels): int
     {
         return array_sum(
-            array_map(fn (TransactionChannel $channel): int => $channel->value, $channels)
+            array_map(fn(TransactionChannel $channel): int => $channel->value, $channels),
         );
     }
 }
