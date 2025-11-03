@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Przelewy24\Tests;
 
 use PHPUnit\Framework\TestCase;
@@ -37,7 +39,7 @@ class TransactionStatusNotificationTest extends TestCase
         $this->assertSame('p24-XXX-YYY-ZZZ', $transaction->statement());
 
         $this->assertTrue(
-            $transaction->isSignValid('0beec7', 1500, 1500, '123456789', 32, 'p24-XXX-YYY-ZZZ')
+            $transaction->isSignValid('0beec7', 1500, 1500, 123456789, 32, 'p24-XXX-YYY-ZZZ')
         );
     }
 }

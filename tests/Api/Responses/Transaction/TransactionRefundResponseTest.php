@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Przelewy24\Tests\Api\Responses\Transaction;
 
 use PHPUnit\Framework\TestCase;

@@ -11,6 +11,7 @@ $finder = Finder::create()
     ->exclude(['vendor']);
 
 return (new Config())
+    ->setRiskyAllowed(true)
     ->setRules([
         '@PSR12' => true,
         'align_multiline_comment' => true,
@@ -22,6 +23,7 @@ return (new Config())
         'class_attributes_separation' => true,
         'clean_namespace' => true,
         'concat_space' => ['spacing' => 'one'],
+        'declare_strict_types' => true,
         'echo_tag_syntax' => true,
         'explicit_indirect_variable' => true,
         'explicit_string_variable' => true,

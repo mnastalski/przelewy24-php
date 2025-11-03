@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Przelewy24\Tests\Enums;
 
 use PHPUnit\Framework\TestCase;

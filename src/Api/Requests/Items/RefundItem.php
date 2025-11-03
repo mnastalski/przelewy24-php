@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Przelewy24\Api\Requests\Items;
 
 class RefundItem
