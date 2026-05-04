@@ -16,7 +16,7 @@ class ShippingTest extends TestCase
             address: 'Address',
             zip: '10-123',
             city: 'City',
-            country: Country::UNITED_KINGDOM
+            country: Country::UNITED_KINGDOM,
         );
 
         $this->assertSame([

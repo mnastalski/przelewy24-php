@@ -11,7 +11,7 @@ class JsonTest extends TestCase
     public function testDecodeResponse(): void
     {
         $decodeResponse = Json::decodeResponse(
-            new Response(200, [], '{"foo":"bar"}')
+            new Response(200, [], '{"foo":"bar"}'),
         );
 
         $this->assertSame(['foo' => 'bar'], $decodeResponse);
